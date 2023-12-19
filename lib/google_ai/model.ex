@@ -6,6 +6,7 @@ defmodule GoogleAI.Model do
   defstruct client: nil, model: nil, generation_config: nil, safety_settings: nil
 
   alias GoogleAI.Client
+  alias GoogleAI.Utils
 
   @typedoc """
   Configuration used for tweaking model generation.
@@ -68,7 +69,7 @@ defmodule GoogleAI.Model do
   @spec new(client :: Client.t(), opts :: Keyword.t()) :: t()
   def new(%Client{req: req} = client \\ GoogleAI.client(), opts) do
     opts = NimbleOptions.validate!(opts, @new_opts_schema)
-    client = %{client | req: Req.update(req, path_params: [model: opts[:model]])}
+    client = %{client | req: Utils.merge_path_params(req, model: opts[:model])}
     struct(__MODULE__, [{:client, client} | opts])
   end
 end

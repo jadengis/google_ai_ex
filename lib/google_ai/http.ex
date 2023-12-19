@@ -3,15 +3,16 @@ defmodule GoogleAI.Http do
   HTTP utilities for GoogleAI APIs.
   """
   alias GoogleAI.Model
+  alias GoogleAI.Utils
 
   @default_receive_timeout 60_000
 
-  @typedoc"""
+  @typedoc """
   The structure of data returned from the post function.
   """
   @type response(body_type) :: {:ok, body_type} | {:error, Exception.t()}
 
-  @type response() :: response(map()) 
+  @type response() :: response(map())
 
   @doc """
   Dispatch a POST request for the given `model` and `action`.
@@ -20,8 +21,8 @@ defmodule GoogleAI.Http do
   def post(%Model{client: %{req: req}}, action, json) when is_binary(action) do
     req =
       req
+      |> Utils.merge_path_params(action: action)
       |> Req.update(
-        path_params: [action: action],
         json: json,
         receive_timeout: @default_receive_timeout
       )
