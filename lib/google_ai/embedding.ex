@@ -18,14 +18,27 @@ defmodule GoogleAI.Embedding do
             ]
           }
         }
-@typedoc """
+  @typedoc """
   The structure of a GoogleAI embedding response.
-  """
-  @type embed_response :: %{
-    :embedding => %{
-      :values => [float()]
+
+  Has the following format:
+
+  %{
+    "embedding" => %{
+      "values" => [
+        0.0234234,
+        0.3214135,
+        0.5645654,
+        ...
+      ]
     }
   }
+  """
+  @type embed_response :: %{
+          String.t() => %{
+            String.t() => [float()]
+          }
+        }
 
   @typedoc """
   The structure of a GoogleAI batch embedding request.
@@ -36,18 +49,42 @@ defmodule GoogleAI.Embedding do
 
   @typedoc """
   The structure of a GoogleAI batch embedding response.
+
+  Has the following format:
+
+  %{
+    "embeddings" => [%{
+      "values" => [
+        0.0234234,
+        0.3214135,
+        0.5645654,
+        ...
+      ]
+    }]
+  }
   """
   @type batch_embed_response :: %{
-    :embeddings => [%{:values => [float()]}]
-  }
+          String.t() => [%{String.t() => [float()]}]
+        }
 
   @doc """
   Create an embedding using the given `model` for the given `input`.
 
-  The `input` can either be a single piece of text or a list. In the case that it is a list,
+  ## Arguments
+
+  * `:model` - The `GoogleAI.Model` to use for this request.
+  * `:input` - Either a single string or a list of strings. In the case that it is a list,
   the `batchEmbedContents` action will be used.
+
+  ## Returns
+
+  A map containing the fields of the embedding response.
+
+  See https://ai.google.dev/tutorials/rest_quickstart#embedding.
+
   """
-  @spec create(Model.t(), String.t() | [String.t()]) :: Http.response(embed_response() | batch_embed_response())
+  @spec create(Model.t(), String.t() | [String.t()]) ::
+          Http.response(embed_response() | batch_embed_response())
   def create(model, input) when is_binary(input) do
     Http.post(model, "embedContent", build_request(model, input))
   end
