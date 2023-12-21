@@ -18,7 +18,7 @@ defmodule GoogleAITest do
              } = req
 
       assert base_url ==
-               "https://generativelanguage.googleapis.com/:version/models/:model::action"
+               "https://generativelanguage.googleapis.com"
 
       assert params == [key: "api-key"]
       assert path_params == [version: "v1beta"]
@@ -34,7 +34,7 @@ defmodule GoogleAITest do
                options: %{base_url: base_url, params: params, path_params: path_params}
              } = req
 
-      assert base_url == "#{opts[:base_url]}/:version/models/:model::action"
+      assert base_url == opts[:base_url]
       assert params == [key: opts[:api_key]]
       assert path_params == [version: opts[:api_version]]
     end

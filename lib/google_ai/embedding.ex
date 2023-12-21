@@ -1,6 +1,7 @@
 defmodule GoogleAI.Embedding do
   @moduledoc """
-  This module provides an implementation of the Google AI embeddings API. The API reference can be found at https://ai.google.dev/tutorials/rest_quickstart#embedding.
+  This module provides an implementation of the Google AI embeddings API.
+  The API reference can be found at https://ai.google.dev/tutorials/rest_quickstart#embedding.
   """
   alias GoogleAI.Http
   alias GoogleAI.Model
@@ -18,11 +19,13 @@ defmodule GoogleAI.Embedding do
             ]
           }
         }
+
   @typedoc """
   The structure of a GoogleAI embedding response.
 
   Has the following format:
 
+  ```elixir
   %{
     "embedding" => %{
       "values" => [
@@ -33,6 +36,7 @@ defmodule GoogleAI.Embedding do
       ]
     }
   }
+  ```
   """
   @type embed_response :: %{
           String.t() => %{
@@ -52,6 +56,7 @@ defmodule GoogleAI.Embedding do
 
   Has the following format:
 
+  ```elixir
   %{
     "embeddings" => [%{
       "values" => [
@@ -62,6 +67,7 @@ defmodule GoogleAI.Embedding do
       ]
     }]
   }
+  ```
   """
   @type batch_embed_response :: %{
           String.t() => [%{String.t() => [float()]}]
@@ -93,7 +99,8 @@ defmodule GoogleAI.Embedding do
     Http.post(model, "batchEmbedContents", build_request(model, inputs))
   end
 
-  @spec build_request(Model.t(), String.t()) :: embed_request() | batch_embed_request()
+  @spec build_request(Model.t(), String.t() | [String.t()]) ::
+          embed_request() | batch_embed_request()
   defp build_request(%{model: model}, input) when is_binary(input) do
     %{
       model: "model/#{model}",

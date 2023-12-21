@@ -40,7 +40,7 @@ defmodule GoogleAI do
 
     req =
       Req.new(
-        base_url: get_base_url(opts[:base_url]),
+        base_url: opts[:base_url],
         params: [key: opts[:api_key]],
         path_params: [version: opts[:api_version]]
       )
@@ -51,10 +51,5 @@ defmodule GoogleAI do
   @spec get_api_key() :: String.t()
   defp get_api_key do
     Application.get_env(:google_ai, :api_key)
-  end
-
-  @spec get_base_url(base :: String.t()) :: String.t()
-  defp get_base_url(base) do
-    URI.new!(base) |> URI.append_path("/:version/models/:model::action") |> URI.to_string()
   end
 end
