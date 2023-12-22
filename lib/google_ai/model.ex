@@ -48,12 +48,12 @@ defmodule GoogleAI.Model do
                        doc: "The model name e.g. gemini-pro, gemini-pro-vision or embedding-001."
                      ],
                      generation_config: [
-                       type: :string,
+                       type: :keyword_list,
                        doc:
                          "The model generation configuration. These will be passed to requests as required."
                      ],
                      safety_settings: [
-                       type: :string,
+                       type: :keyword_list,
                        doc:
                          "The model safety settings. These will be passed to requests as required."
                      ]

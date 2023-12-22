@@ -10,6 +10,7 @@ defmodule GoogleAI.MixProject do
       app: :google_ai,
       version: @version,
       elixir: "~> 1.13",
+      elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       package: package(),
@@ -24,12 +25,17 @@ defmodule GoogleAI.MixProject do
     ]
   end
 
+  # Specifies which paths to compile per environment.
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
+
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
       {:req, "~> 0.4"},
       {:nimble_options, "~> 1.0"},
       {:bypass, "~> 2.1", only: :test},
+      {:plug, "~> 1.15", only: :test},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
       {:ex_doc, ">= 0.0.0", only: :docs}

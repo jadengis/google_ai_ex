@@ -5,6 +5,7 @@ defmodule GoogleAI.Content do
   """
   alias GoogleAI.Http
   alias GoogleAI.Model
+  alias GoogleAI.Utils
 
   @typedoc """
   The message role assigned to the content.
@@ -184,14 +185,19 @@ defmodule GoogleAI.Content do
 
     request =
       if generation_config do
-        Map.put(request, :generationConfig, Enum.into(generation_config, %{}))
+        Map.put(request, :generationConfig, Utils.camelize_keys(generation_config))
       else
         request
       end
 
     request =
       if safety_settings do
-        settings = safety_settings |> Enum.map(&Enum.into(&1, %{}))
+        settings =
+          safety_settings
+          |> Enum.map(fn setting ->
+            Utils.camelize_keys(setting)
+          end)
+
         Map.put(request, :safetySettings, settings)
       else
         request
