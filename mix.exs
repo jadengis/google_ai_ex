@@ -38,7 +38,7 @@ defmodule GoogleAI.MixProject do
       {:plug, "~> 1.15", only: :test},
       {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.4", only: [:dev, :test], runtime: false},
-      {:ex_doc, ">= 0.0.0", only: :docs}
+      {:ex_doc, ">= 0.0.0", only: [:dev], runtime: false}
     ]
   end
 
