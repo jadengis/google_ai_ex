@@ -9,6 +9,6 @@ defmodule GoogleAI.Client do
   The type of the Google AI client.
   """
   @type t :: %__MODULE__{
-          req: Req.t()
+          req: Req.Request.t()
         }
 end
