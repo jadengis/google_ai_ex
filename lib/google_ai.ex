@@ -29,7 +29,28 @@ defmodule GoogleAI do
   Create a new GoogleAI client with the given `opts`.
 
   ## Options
+
   #{NimbleOptions.docs(@new_opts_schema)}
+  ## Examples
+
+    iex> GoogleAI.client(api_key: "asdfasdf")
+    %GoogleAI.Client{
+      req: Req.new(
+        base_url: "https://generativelanguage.googleapis.com", 
+        params: [key: "asdfasdf"], 
+        path_params: [version: "v1beta"]
+      )
+    }
+
+    iex> GoogleAI.client(api_key: "asdfasdf", base_url: "https://example.com", api_version: "v1")
+    %GoogleAI.Client{
+      req: Req.new(
+        base_url: "https://example.com", 
+        params: [key: "asdfasdf"], 
+        path_params: [version: "v1"]
+      )
+    }
+
   """
   @spec client(opts :: Keyword.t()) :: Client.t()
   def client(opts \\ []) do

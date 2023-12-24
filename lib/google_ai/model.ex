@@ -65,7 +65,26 @@ defmodule GoogleAI.Model do
   The function `new/1` will use the default GoogleAI API configuration.
 
   ## Options
+
   #{NimbleOptions.docs(@new_opts_schema)}
+  ## Examples
+
+    iex> client = GoogleAI.client(api_key: "asdfasdf")
+    ...> GoogleAI.Model.new(client, model: "gemini-pro")
+    %GoogleAI.Model{
+      client: %GoogleAI.Client{
+        req: Req.new(
+          url: "/:version/models/:model::action",
+          base_url: "https://generativelanguage.googleapis.com",
+          params: [key: "asdfasdf"], 
+          path_params: [version: "v1beta", model: "gemini-pro"]
+        )
+      },
+      model: "gemini-pro",
+      generation_config: nil,
+      safety_settings: nil
+    }
+
   """
   @spec new(client :: Client.t(), opts :: Keyword.t()) :: t()
   def new(%Client{req: req} = client \\ GoogleAI.client(), opts) do

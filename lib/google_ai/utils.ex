@@ -15,11 +15,26 @@ defmodule GoogleAI.Utils do
   @doc """
   Camelize all keys in the given map or keyword-list.
 
-  Returns a string-keyed map.
+  ## Arguments
+
+  * `:input` - A map or keyword-list to camelize.
+
+  ## Returns
+
+  A string-keyed map with camelized keys.
+
+  ## Examples
+
+    iex> GoogleAI.Utils.camelize_keys(%{"foo_bar" => "baz"})
+    %{"fooBar" => "baz"}
+
+    iex> GoogleAI.Utils.camelize_keys(foo_bar: "baz")
+    %{"fooBar" => "baz"}
+
   """
   @spec camelize_keys(map() | Keyword.t()) :: map()
-  def camelize_keys(map) when is_map(map) or is_list(map) do
-    map
+  def camelize_keys(input) when is_map(input) or is_list(input) do
+    input
     |> Stream.map(fn {key, value} ->
       <<first::binary-size(1), rest::binary>> = to_string(key) |> Macro.camelize()
       key = String.downcase(first) <> rest

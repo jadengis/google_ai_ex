@@ -1,5 +1,6 @@
 defmodule GoogleAI.ModelTest do
   use GoogleAI.HttpCase, async: true
+  doctest GoogleAI.Model
 
   alias GoogleAI.Model
 
