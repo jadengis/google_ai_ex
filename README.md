@@ -1,7 +1,8 @@
 # README
 
 [![License](https://img.shields.io/hexpm/l/google_ai.svg)](https://github.com/jadengis/google_ai_ex/blob/master/LICENSE)
-[![Version](https://img.shields.io/hexpm/v/google_ai.svg)](https://hex.pm/packages/google_ai)
+[![Hex Package](https://img.shields.io/hexpm/v/google_ai.svg)](https://hex.pm/packages/google_ai)
+[![Hex Docs](https://img.shields.io/badge/hex-docs-blue.svg)](https://hexdocs.pm/google_ai)
 [![CI](https://github.com/jadengis/google_ai_ex/actions/workflows/ci.yml/badge.svg)](https://github.com/jadengis/google_ai_ex/actions/workflows/ci.yml)
 
 `GoogleAI` is an Elixir library that provides a community-maintained Google AI API client.
